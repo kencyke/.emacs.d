@@ -78,12 +78,14 @@
 ;; flycheck
 (use-package flycheck
   :diminish flycheck-mode
-  :init (global-flycheck-mode))
+  :init
+  (global-flycheck-mode))
 
 ;; flyspell - use aspell instead of ispell
 (use-package flyspell
   :commands (flyspell-mode flyspell-prog-mode)
-  :config (setq ispell-program-name (executable-find "aspell")
+  :config
+  (setq ispell-program-name (executable-find "aspell")
                                 ispell-extra-args '("--sug-mode=ultra")))
 ;; helm
 (use-package helm
@@ -106,7 +108,8 @@
         git-commit-summary-max-length 70))
 
 ;; common lisp
-(use-package lisp-mode
+(use-package lisp
+  :mode "\\.lisp$"
   :config
   (progn
     (setq inferior-lisp-program "/usr/local/bin/sbcl")
@@ -128,7 +131,7 @@
     (add-to-list 'ac-modes 'slime-repl-mode)))
 
 ;; json
-(use-package json-mode
+(use-package json
   :mode "\\.json$"
   :config
   (setq js-indent-level 4))
@@ -151,9 +154,11 @@
   :mode "\\.ya?ml\'")
 
 ;; python
-(use-package python-mode
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode)
   :config
-  (setq indent-tabs-mode t)
+  (setq indent-tabs-mode nil)
   (setq indent-level 4)
   (setq python-indent 4)
   (setq tab-width 4))
