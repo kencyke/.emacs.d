@@ -108,8 +108,8 @@
         git-commit-summary-max-length 70))
 
 ;; common lisp
-(use-package lisp
-  :mode "\\.lisp$"
+(use-package lisp-mode
+  :mode "\\.lisp\\'"
   :config
   (progn
     (setq inferior-lisp-program "/usr/local/bin/sbcl")

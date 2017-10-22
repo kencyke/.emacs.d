@@ -23,7 +23,6 @@
 (depends-on "markdown-mode")
 (depends-on "pallet")
 (depends-on "popup")
-(depends-on "python-mode")
 (depends-on "use-package")
 (depends-on "slime")
 (depends-on "toml-mode")
