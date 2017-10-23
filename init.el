@@ -28,11 +28,12 @@
 
 ;; global settings
 (global-hl-line-mode)
-(setq inhibit-startup-message t)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(defalias 'yes-or-no-p 'y-or-n-p)
 (setq-default indent-tabs-mode nil)
+(setq inhibit-startup-screen t)
+(defun display-startup-echo-area-message ()
+  (message "Let the hacking begin!"))
 
 ;; autocomplete
 (use-package auto-complete
@@ -118,9 +119,8 @@
 (use-package slime
   :commands slime
   :config
-  (progn
-    (setq slime-net-coding-system 'utf-8-unix)
-    (slime-setup '(slime-repl slime-fancy slime-fuzzy))))
+  (setq slime-net-coding-system 'utf-8-unix
+        slime-contribs '(slime-fancy)))
 
 (use-package ac-slime
   :defer t
@@ -130,8 +130,21 @@
   (with-eval-after-load 'auto-complete
     (add-to-list 'ac-modes 'slime-repl-mode)))
 
+;; shackle
+(use-package shackle
+  :ensure t
+  :config
+  (progn
+    (setq shackle-default-size 0.3)
+    (setq shackle-inhibit-window-quit-on-same-windows t)
+    (setq helm-display-function 'pop-to-buffer)
+    (setq shackle-rules
+          '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
+            ("*inferior-lisp*" :align 't :size 0.3)))
+    (shackle-mode 1)))
+
 ;; json
-(use-package json
+(use-package json-mode
   :mode "\\.json$"
   :config
   (setq js-indent-level 4))
@@ -156,12 +169,12 @@
 ;; python
 (use-package python
   :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python" . python-mode)
+  :interpreter ("python2" . python-mode) ("python3" . python-mode)
   :config
-  (setq indent-tabs-mode nil)
-  (setq indent-level 4)
-  (setq python-indent 4)
-  (setq tab-width 4))
+  (setq indent-tabs-mode nil
+        indent-level 4
+        python-indent 4
+        tab-width 4))
 
 ;; web
 (use-package web-mode
